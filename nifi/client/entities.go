@@ -707,3 +707,46 @@ type SystemDiagnosticsDTO struct {
 type SystemDiagnosticsEntity struct {
 	SystemDiagnostics SystemDiagnosticsDTO `json:"systemDiagnostics"`
 }
+
+type ProcessorEntity struct {
+	Revision           RevisionDTO        `json:"revision"`
+	ID                 string             `json:"id"`
+	URI                string             `json:"uri"`
+	Position           PositionDTO        `json:"position"`
+	Permissions        PermissionsDTO     `json:"permissions"`
+	Bulletins          []BulletinEntity   `json:"bulletins"`
+	Component          ProcessorDTO       `json:"component"`
+	Status             ProcessorStatusDTO `json:"status"`
+	OperatePermissions PermissionsDTO     `json:"operatePermissions"`
+}
+
+type ProcessorsEntity struct {
+	Processors []ProcessorEntity `json:"processors"`
+}
+
+type ProcessorStatusDTO struct {
+	GroupID            string                           `json:"groupId"`
+	ID                 string                           `json:"id"`
+	Name               string                           `json:"name"`
+	Type               string                           `json:"type"`
+	RunStatus          string                           `json:"runStatus"`
+	StatsLastRefreshed string                           `json:"statsLastRefreshed"`
+	AggregateSnapshot  *ProcessorStatusSnapshotDTO      `json:"aggregateSnapshot"`
+	NodeSnapshots      []NodeProcessorStatusSnapshotDTO `json:"nodeSnapshots"`
+}
+
+type NodeProcessorStatusSnapshotDTO struct {
+	NodeID         string                     `json:"nodeId"`
+	Address        string                     `json:"address"`
+	ApiPort        int32                      `json:"apiPort"`
+	StatusSnapshot ProcessorStatusSnapshotDTO `json:"statusSnapshot"`
+}
+
+type ProcessorDTO struct {
+	ID                   string `json:"id"`
+	VersionedComponentId string `json:"versionedComponentId"`
+	ParentGroupId        string `json:"parentGroupId"`
+	Name                 string `json:"name"`
+	Type                 string `json:"type"`
+	State                string `json:"state"`
+}

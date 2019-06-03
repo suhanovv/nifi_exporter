@@ -11,14 +11,14 @@ import (
 	"github.com/go-playground/locales/en"
 	"github.com/go-playground/universal-translator"
 	"github.com/juju/errors"
-	"github.com/msiedlarek/nifi_exporter/nifi/client"
-	"github.com/msiedlarek/nifi_exporter/nifi/collectors"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/go-playground/validator.v9"
 	validator_en "gopkg.in/go-playground/validator.v9/translations/en"
 	"gopkg.in/yaml.v2"
+	"nifi_exporter/nifi/client"
+	"nifi_exporter/nifi/collectors"
 )
 
 type Configuration struct {
@@ -119,6 +119,9 @@ func start(config *Configuration) error {
 		}
 		if err := prometheus.DefaultRegisterer.Register(collectors.NewConnectionsCollector(api, node.Labels)); err != nil {
 			return errors.Annotate(err, "Couldn't register connections collector.")
+		}
+		if err := prometheus.DefaultRegisterer.Register(collectors.NewProcessorsCollector(api, node.Labels)); err != nil {
+			return errors.Annotate(err, "Couldn't register processors collector.")
 		}
 	}
 

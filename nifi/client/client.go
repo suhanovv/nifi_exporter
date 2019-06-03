@@ -300,4 +300,13 @@ func (c *Client) authenticate() error {
 	} else {
 		return errors.New(body)
 	}
+
+}
+
+func (c *Client) GetProcessors(parentID string) ([]ProcessorEntity, error) {
+	var entity ProcessorsEntity
+	if err := c.request("/process-groups/"+parentID+"/processors", nil, &entity); err != nil {
+		return nil, errors.Trace(err)
+	}
+	return entity.Processors, nil
 }

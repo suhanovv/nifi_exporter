@@ -1,8 +1,8 @@
 package collectors
 
 import (
-	"github.com/msiedlarek/nifi_exporter/nifi/client"
 	"github.com/prometheus/client_golang/prometheus"
+	"nifi_exporter/nifi/client"
 )
 
 type ProcessGroupsCollector struct {
